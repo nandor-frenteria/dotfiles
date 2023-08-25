@@ -1,14 +1,17 @@
-# Simplified dotfile for video recordings
+chmod -R go-w '/usr/local/share'
 
 # Load dotfiles:
-for file in ~/.{bash_prompt,aliases,private}; do
+for file in ~/.{.zprompt,aliases,private}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
 
 #Git auto-complete
-if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
+if type brew &>/dev/null; then
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+autoload -Uz compinit
+compinit
 fi
 
 # Setting PATH for Python 3.7
